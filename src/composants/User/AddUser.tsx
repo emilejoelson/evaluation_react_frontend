@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Box, TextField, Button } from '@mui/material';
 import { AddUser as AddUserService } from "../../config/UserApi";
 import UserModel from '../../models/entities/UserModel';
-import { validateUserForm } from '../../utils/helpers';
 import { useNavigate } from 'react-router-dom';
 
 const AddUser = () => {
@@ -23,13 +22,11 @@ const AddUser = () => {
 
   const handleAddUser = async () => {
     try {
-      validateUserForm(formData);
       await AddUserService(formData);
       navigate("/users");
-      console.log('User added successfully!', formData);
     } catch (error) {
       console.error('Error adding user:', error);
-      alert(error.message); // Display validation error message
+      alert(error.message); 
     }
   };
 

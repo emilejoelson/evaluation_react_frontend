@@ -1,4 +1,5 @@
-import UserModel from "./UserModel";
+import BorrowModel from "./BorrowModel";
+import ReviewModel from "./ReviewModel";
 
 interface BookModel {
   id: number;
@@ -6,9 +7,8 @@ interface BookModel {
   author: string;
   summary: string;
   genre: string;
-  borrowingDate: Date;
-  user: UserModel;
-  }
-  
-  export default BookModel;
-  
+  borrows: BorrowModel[];
+  reviews: ReviewModel[];
+}
+
+export default BookModel;

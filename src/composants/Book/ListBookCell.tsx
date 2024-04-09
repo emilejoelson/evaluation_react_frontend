@@ -1,8 +1,8 @@
 // ListBookCell.tsx
 import { Button, MenuItem, Select } from "@mui/material";
 import React, { useState } from "react";
-import BookModel from '../models/entities/BookModel';
-import { getAllBooks } from "../config/BookApi";
+import BookModel from '../../models/entities/BookModel';
+import { getAllBooks } from "../../config/BookApi";
 
 type Props = {
     onBookSelect: (book: BookModel) => void;

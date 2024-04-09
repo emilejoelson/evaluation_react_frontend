@@ -1,9 +1,10 @@
-// AllBooks.tsx
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Box } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import BookModel from '../../models/entities/BookModel';
 import { useNavigate } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import CellBookDetails from './CellBookDetails';
 
 type Props = {
     books: BookModel[];
@@ -12,27 +13,29 @@ type Props = {
 const AllBooks = ({ books }: Props) => {
     const navigate = useNavigate();
     
-
-
-
     const AddUser = () => {
         navigate('/add-book');
     };
 
     const columns: GridColDef[] = [
-        { field: 'id', headerName: 'ID', width: 100 },
-        { field: 'title', headerName: 'Title', width: 250 },
-        { field: 'author', headerName: 'Author', width: 250 },
-        { field: 'summary', headerName: 'Summary', width: 250 },
-        { field: 'genre', headerName: 'Genre', width: 250 },
-        { field: 'borrowingDate', headerName: 'Borrowing Date', width: 250 },
-        { 
-            field: 'user', 
-            headerName: 'User ID', 
-            width: 250
-
-        }
+        { field: 'id', headerName: 'ID', width: 50 },
+        { field: 'title', headerName: 'Title', width: 200 },
+        { field: 'author', headerName: 'Author', width: 200 },
+        { field: 'summary', headerName: 'Summary', width: 400 },
+        { field: 'genre', headerName: 'Genre', width: 150 },
+        {
+            field: 'details',
+            headerName: 'Details',
+            width: 80,
+            renderCell: (params) => (
+                <CellBookDetails onBookDetailsClick={() => handleBookDetailsClick(params.row.id)} />
+            )
+        },
     ];
+
+    const handleBookDetailsClick = (bookId: number) => {
+        navigate(`/book-details/${bookId}`);
+    };
 
     return (
         <Box
@@ -90,6 +93,22 @@ const AllBooks = ({ books }: Props) => {
                     onClick={AddUser}
                 >
                     <AddIcon sx={{ color: 'white', fontSize: 40 }} />
+                </Box>
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        top: '77%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        zIndex: 1,
+                        backgroundColor: 'gray',
+                        borderRadius: '50%',
+                        cursor: "pointer",
+                        height: "40px"
+                    }}
+                    onClick={() => navigate('/')}
+                >
+                    <ArrowBackIcon sx={{ color: 'white', fontSize: 40 }} />
                 </Box>
             </Box>
         </Box>

@@ -1,5 +1,6 @@
 
-import AddBook from "../composants/Books/AddBook";
+import AddBook from "../composants/Book/AddBook";
+import BookDetails from "../composants/Book/BookDetails"
 import AddUser from "../composants/User/AddUser";
 import Book from "../pages/Book";
 import User from "../pages/User";
@@ -22,6 +23,10 @@ const ROUTES = [
         path : "add-book",
         element : AddBook
     },
+    {
+        path: "book-details/:bookId", 
+        element: BookDetails
+    }
 
 ]
 

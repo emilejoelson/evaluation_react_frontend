@@ -3,6 +3,7 @@ import ErrorResponseData from "../models/dataTypes/ErrorResponseData";
 import ResponseData from "../models/dataTypes/ResponseData";
 import UserModel from "../models/entities/UserModel";
 import { APIProvider } from "./APIProvider";
+import { validateUserForm } from "../utils/helpers";
 
 
 
@@ -16,8 +17,18 @@ const getAllUsers = async ():Promise<Array<UserModel>> => {
   }
 }
 
+ const getUserById = async (userId: number): Promise<UserModel | null> => {
+  try {
+      const response = await APIProvider.get(`/users/${userId}`);
+      return response.data as UserModel;
+  } catch (error) {
+      console.error('Error fetching user by ID:', error);
+      return null;
+  }
+};
  const AddUser = async (user: UserModel): Promise<any> => {
     try {
+         validateUserForm(user);
         const response: ResponseData = await APIProvider.post('/users', user);
         toast.success("User Added Successfully ")
         return response.data;
@@ -28,4 +39,4 @@ const getAllUsers = async ():Promise<Array<UserModel>> => {
 };
 
 
-export {getAllUsers,AddUser }
+export {getAllUsers,AddUser,getUserById }

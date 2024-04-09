@@ -3,6 +3,7 @@ import { Box, TextField, Button } from '@mui/material';
 import { AddBook as AddBookService } from "../../config/BookApi";
 import { useNavigate } from 'react-router-dom';
 import BookModel from '../../models/entities/BookModel';
+import { validateBookForm } from '../../utils/helpers';
 
 const AddBook = () => {
     const [formData, setFormData] = useState<BookModel>({
@@ -10,12 +11,6 @@ const AddBook = () => {
         author: '',
         summary: '',
         genre: '',
-        borrowingDate: new Date(),
-        user: {
-            id: 0,
-            username: '', 
-            email: '' 
-        }
     });
 
     const navigate = useNavigate();
@@ -32,12 +27,11 @@ const AddBook = () => {
         try {
             await AddBookService(formData);
             navigate("/books");
-            console.log('Book added successfully!', formData);
         } catch (error) {
-            console.error('Error adding book:', error);
             alert(error.message); 
         }
     };
+    
 
     return (
         <Box

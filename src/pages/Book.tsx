@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import BookModel from '../models/entities/BookModel';
 import { getAllBooks } from '../config/BookApi';
-import AllBooks from '../composants/Books/AllBooks';
+import AllBooks from '../composants/Book/AllBooks';
 
 const Book = () => {
     const [books, setBooks] = useState<Array<BookModel>>([]);

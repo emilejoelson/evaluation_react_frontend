@@ -3,7 +3,7 @@ import ErrorResponseData from "../models/dataTypes/ErrorResponseData";
 import ResponseData from "../models/dataTypes/ResponseData";
 import BookModel from "../models/entities/BookModel";
 import { APIProvider } from "./APIProvider";
-import axios from 'axios';
+import { validateBookForm } from "../utils/helpers";
 const getAllBooks = async ():Promise<Array<BookModel>> => {
     try{
       const response : ResponseData = await APIProvider.get("/books");
@@ -15,9 +15,10 @@ const getAllBooks = async ():Promise<Array<BookModel>> => {
   }
 
 
-  
+   
    const AddBook = async (book: BookModel): Promise<any> => {
       try {
+          validateBookForm(book)
           const response: ResponseData = await APIProvider.post('/books', book);
           toast.success("Book Added Successfully ")
           return response.data;
@@ -27,18 +28,6 @@ const getAllBooks = async ():Promise<Array<BookModel>> => {
       }
   };
   
-  const borrowBook = async (userId: number, bookId: number): Promise<void> => {
-    try {
-        await APIProvider.post(`/books/${bookId}/borrowedBy/${userId}`);
-    } catch (error: any) {
-        if (axios.isAxiosError(error) && error.response) {
-            const responseData: ErrorResponseData = error.response.data;
-            throw new Error(responseData.message);
-        } else {
-            throw new Error('An error occurred while borrowing the book.');
-        }
-    }
-};
 
   
-  export {getAllBooks,borrowBook,AddBook}
+  export {getAllBooks,AddBook}
